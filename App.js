@@ -5,6 +5,8 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Sharing from 'expo-sharing';
 import uploadToAnonymousFilesAsync from 'anonymous-files'; 
 
+import Button from './components/Button';
+
 export default function App() {
   const [selectedImage, setSelectedImage] = React.useState(null);
 
@@ -43,9 +45,18 @@ export default function App() {
     return (
       <View style={styles.container}>
         <Image source={{ uri: selectedImage.localUri }} style={styles.thumbnail} />
-        <TouchableOpacity onPress={openShareDialogAsync} style={styles.button}>
-          <Text style={styles.buttonText}>Share this photo</Text>
-        </TouchableOpacity>
+        <Button 
+          contents={openShareDialogAsync}
+          text={"Share this photo"}
+          style={styles.button}
+          textStyle={styles.buttonText}
+        />
+        <Button 
+          contents={() => setSelectedImage(null)}
+          text={"Back"}
+          style={styles.button}
+          textStyle={styles.buttonText}
+        />
       </View>
     );
   }
@@ -56,12 +67,12 @@ export default function App() {
       <Text style={styles.instructions}>
         To share a photo from your phone with a friend, just press the button below!
       </Text>
-
-      <TouchableOpacity
-        onPress={openImagePickerAsync}
-        style={styles.button}>
-        <Text style={styles.buttonText}>Pick a photo</Text>
-      </TouchableOpacity>
+      <Button 
+        contents={openImagePickerAsync} 
+        text={"Pick a photo"} 
+        style={styles.button} 
+        textStyle={styles.buttonText}
+      />
     </View>
   );
 }
