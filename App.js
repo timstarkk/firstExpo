@@ -5,6 +5,7 @@ import logo from './assets/logo.png';
 import * as ImagePicker from 'expo-image-picker';
 import * as Sharing from 'expo-sharing';
 import uploadToAnonymousFilesAsync from 'anonymous-files'; 
+import { NavigationContainer } from '@react-navigation/native';
 
 import Button from './components/Button';
 
@@ -44,37 +45,41 @@ export default function App() {
   
   if (selectedImage !== null) {
     return (
-      <View style={styles.container}>
-        <Image source={{ uri: selectedImage.localUri }} style={styles.thumbnail} />
-        <Button 
-          contents={openShareDialogAsync}
-          text={"Share this photo"}
-          style={styles.button}
-          textStyle={styles.buttonText}
-        />
-        <Button 
-          contents={() => setSelectedImage(null)}
-          text={"Back"}
-          style={styles.button}
-          textStyle={styles.buttonText}
-        />
-      </View>
+      <NavigationContainer>
+        <View style={styles.container}>
+          <Image source={{ uri: selectedImage.localUri }} style={styles.thumbnail} />
+          <Button 
+            contents={openShareDialogAsync}
+            text={"Share this photo"}
+            style={styles.button}
+            textStyle={styles.buttonText}
+          />
+          <Button 
+            contents={() => setSelectedImage(null)}
+            text={"Back"}
+            style={styles.button}
+            textStyle={styles.buttonText}
+          />
+        </View>
+      </NavigationContainer>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <Image source={logo} style={styles.logo} />
-      <Text style={styles.instructions}>
-        To share a photo from your phone with a friend, just press the button below!
-      </Text>
-      <Button 
-        contents={openImagePickerAsync} 
-        text={"Pick a photo"} 
-        style={styles.button} 
-        textStyle={styles.buttonText}
-      />
-    </View>
+    <NavigationContainer>
+      <View style={styles.container}>
+        <Image source={logo} style={styles.logo} />
+        <Text style={styles.instructions}>
+          To share a photo from your phone with a friend, just press the button below!
+        </Text>
+        <Button 
+          contents={openImagePickerAsync} 
+          text={"Pick a photo"} 
+          style={styles.button} 
+          textStyle={styles.buttonText}
+        />
+      </View>
+    </NavigationContainer>
   );
 }
 
